@@ -1,10 +1,13 @@
 package com.example.hibernateNew.entity;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.persistence.*;
 
 @Entity
 //defining class name as Table name
 @Table(name = "student")
+@Cacheable
 public class Student
 {
     //mark id as primary key
@@ -22,6 +25,7 @@ public class Student
     //defining email as column name
     @Column
     private String email;
+
     public int getId()
     {
         return id;
@@ -53,5 +57,21 @@ public class Student
     public void setEmail(String email)
     {
         this.email = email;
+    }
+
+    public  Student(String name, Integer age, String emailId){
+        this.name=name;
+        this.age=age;
+        this.email=emailId;
+    }
+
+    @PostConstruct
+    public void init(){
+
+    }
+
+    @PreDestroy
+    public void Destroy(){
+
     }
 }

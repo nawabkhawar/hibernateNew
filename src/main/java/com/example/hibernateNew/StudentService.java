@@ -16,6 +16,10 @@ public interface StudentService
         public Student saveOrUpdate(Student student);
 
         public boolean delete(Integer id);
+
+        public boolean bulkAddition(Integer size);
+
+        public boolean bulkAdditionWithBatch(Integer size);
     }
 
 

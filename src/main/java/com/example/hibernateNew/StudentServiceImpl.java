@@ -2,6 +2,7 @@ package com.example.hibernateNew;
 
 import com.example.hibernateNew.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class StudentServiceImpl implements StudentService {
         return studentDao.addStudent(student);
     }
 
+    @Cacheable("student")
     @Override
     public Student getStudentById(Integer id) {
         return studentDao.getStudentById(id);
@@ -32,7 +34,18 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public boolean bulkAddition(Integer size) {
+        return studentDao.bulkAddition(size);
+    }
+
+    @Override
+    public boolean bulkAdditionWithBatch(Integer size) {
+        return studentDao.bulkAdditionWithBatch(size);
+    }
+
+
+    @Override
     public boolean delete(Integer id) {
-        return false;
+        return studentDao.removeStudentById(id);
     }
 }

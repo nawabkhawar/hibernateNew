@@ -13,28 +13,41 @@ public class MainController {
     StudentService studentService;
 
     //creating a get mapping that retrieves all the students detail from the database
-    @GetMapping("/student")
+    @GetMapping("/student/getAllStudents")
     private List<Student> getAllStudent()
     {
         return studentService.getAllStudent();
     }
     //creating a get mapping that retrieves the detail of a specific student
-    @GetMapping("/student/{id}")
+    @GetMapping("student/getStudent/{id}")
     private Student getStudent(@PathVariable("id") int id)
     {
         return studentService.getStudentById(id);
     }
     //creating a delete mapping that deletes a specific student
-    @DeleteMapping("/student/{id}")
-    private void deleteStudent(@PathVariable("id") int id)
+    @DeleteMapping("/student/removeStudent/{id}")
+    private boolean deleteStudent(@PathVariable("id") int id)
     {
-        studentService.delete(id);
+        return studentService.delete(id);
+
     }
     //creating post mapping that post the student detail in the database
-    @PostMapping("/addStudent")
+    @PostMapping("student/addStudent")
     private int saveStudent(@RequestBody Student student)
     {
         studentService.saveOrUpdate(student);
         return student.getId();
+    }
+
+    @GetMapping("/student/bulkAddition/{size}")
+    private boolean bulkAddition(@PathVariable("size") Integer size)
+    {
+        return studentService.bulkAddition(size);
+    }
+
+    @GetMapping("/student/bulkAdditionWithBatch/{size}")
+    private boolean bulkAdditionWithBatch(@PathVariable("size") Integer size)
+    {
+        return studentService.bulkAdditionWithBatch(size);
     }
 }
